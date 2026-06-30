@@ -86,7 +86,7 @@ initPrompt = SystemMessage(
         "Be intelligent and negotiate as a human would. Do not give any more information to the client than is necessary"
     )
 )
-llm = ChatOpenAI(temperature=0.5, model='gpt-5.4')
+llm = ChatOpenAI(temperature=1, model='gpt-5.5')
 threadID = f"pbm-{uuid.uuid4().hex[:8]}"
 mem = InMemorySaver()
 mem.delete_thread(threadID)
@@ -97,14 +97,20 @@ Pbm = create_agent(
     checkpointer=mem
 )
 
+
+
 @app.route("/negotiate", methods=["POST"])
 def negotiate():
     print(f"\033[31m[Thread ID]: {threadID}\033[31m")
+ 
     data = request.get_json()
     providerMsg = data.get("message", "")
     drug = data.get("drug")
     
     print(f"\033[34m[Buyer]: {providerMsg}\033[0m")
+    with open(f'./agent-history/{threadID}.txt', 'a') as fp:
+        fp.write(f"[Buyer]: {providerMsg}\n")
+
     agentInput = (
         f"TARGET TRANSACTION DRUG KEY: {drug}\n"
         f"Buyer Message: {providerMsg}"
@@ -115,8 +121,12 @@ def negotiate():
     )
     
     seller_reply = response["messages"][-1].content
-    print(f"\033[32m[Seller]: {seller_reply}\033[0m")
     
+    print(f"\033[32m[Seller]: {seller_reply}\033[0m")
+    with open(f'./agent-history/{threadID}.txt', 'a') as fp:
+        fp.write(f"[Seller]: {seller_reply}\n")
+        fp.write(f"{response}\n----------------------------------------\n\n")
+
     return jsonify({"reply": seller_reply})
 
 if __name__ == "__main__":
