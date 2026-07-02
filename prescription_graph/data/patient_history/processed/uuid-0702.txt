@@ -1,0 +1,1 @@
+Patient Medical Record Summary. The patient is currently diagnosed with and being treated for: Cough-Variant Asthma, Exercise-Induced Asthma, post-viral airway remodeling. The patient is currently taking the following concurrent medications: ProAir HFA (containing active ingredients: albuterol sulfate).

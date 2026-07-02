@@ -1,0 +1,46 @@
+Clinical Summary & Visit Notes
+Date of Visit: July 2, 2026
+Patient Name: Emily J. Harris
+Date of Birth: July 12, 1998
+Attending Physician: Dr. Michael J. Thompson, MD
+Department: Pulmonary & Critical Care Medicine / Outpatient Care
+
+Chief Complaint
+The patient is a emale presenting with a three-week history of progressive shortness 
+of breath, a persistent dry cough that worsens significantly at night, and intermittent audible 
+wheezing. She notes that her symptoms are severely exacerbated during her morning outdoor running 
+routines and when exposed to sudden drops in ambient temperature.
+
+Physical Examination & Clinical Findings
+Vital Signs:
+Blood Pressure: 118/76 mmHg
+Heart Rate: 82 bpm (sinus rhythm)
+Respiratory Rate: 19 breaths per minute
+Oxygen Saturation: 96% on room air
+Temperature: 98.4°F (oral)
+
+Auscultation: Bilateral expiratory wheezing is clearly audible throughout the 
+mid-to-lower lung fields. Prolonged expiratory phase noted. No rales, crackles, or 
+friction rubs detected.
+
+Assessment & Plan
+The clinical presentation, physical exam, and spirometry findings confirm a recurrence of 
+Cough-Variant and Exercise-Induced Asthma, currently exacerbated by post-viral airway remodeling.
+
+To manage her acute, sudden-onset bronchospasms and to provide immediate therapeutic relief 
+during symptomatic episodes, a fast-acting rescue bronchodilator is strictly indicated.
+
+Prescription Order
+Medication: ProAir HFA (albuterol sulfate)
+Strength/Form: 90 mcg inhalation aerosol
+Directions (Sig): Inhale 2 puffs by mouth every 4 to 6 hours as needed for 
+wheezing or shortness of breath.
+Dispense: 1 inhaler
+Refills: 2
+
+Clinical Guardrails: Elena was informed that ProAir HFA is strictly a rescue 
+medication designed to alleviate acute symptoms, not a controller drug. 
+Dr. Vance warned her that if she finds herself needing to use this rescue inhaler 
+more than two days per week (excluding pre-exercise preventative use), it signifies that 
+her asthma is poorly controlled. In that event, she must contact the clinic immediately to be 
+stepped up to a daily long-term controller therapy, such as an inhaled corticosteroid (ICS).

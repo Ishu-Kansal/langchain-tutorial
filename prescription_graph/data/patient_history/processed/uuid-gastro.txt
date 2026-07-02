@@ -1,0 +1,1 @@
+Patient Medical Record Summary. The patient is currently diagnosed with and being treated for: Gastrointestinal (GERD / Acid Reflux). The patient is currently taking the following concurrent medications: Omeprazole (Prilosec) (containing active ingredients: Omeprazole).

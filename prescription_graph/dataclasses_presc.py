@@ -1,6 +1,9 @@
 from pydantic import BaseModel, Field
-from typing import List
+from typing import List, Optional
 
+class DrugInfoBasic(BaseModel):
+    drug_name: str = Field(description="Name of drug as given on prescription")
+    active_ingredients: List[str] = Field(description="List of active ingredients in drug")
 
 class PrescInfo(BaseModel):
     date: str = Field(description="Date formatted in MM-DD-YYYY")
@@ -13,3 +16,25 @@ class PrescInfo(BaseModel):
     num_refills: float = Field(description="Maximum number of refills allowed")
     is_signed: bool = Field(description="True if the description is valid and signed, false otherwise")
     fulltext: str = Field(description="All text on prescription for analysis")
+    
+class PatientHistoryDoc(BaseModel):
+    patient_uuid: str = Field(description="Patient's unique uuid identifier")
+    prescription_names: Optional[List[DrugInfoBasic]] = Field(description="List of drugs prescribed during visit")
+    conditions: Optional[List[str]] = Field(description="Patient's conditions which they are being treated for")
+    
+    def to_semantic_string(self) -> str:
+        """Converts structured fields into natural medical prose for optimal RAG vector matching."""
+        lines = [f"Patient Medical Record Summary."]
+        
+        if self.conditions:
+            lines.append(f"The patient is currently diagnosed with and being treated for: {', '.join(self.conditions)}.")
+            
+        if self.prescription_names:
+            drug_descriptions = []
+            for drug in self.prescription_names:
+                ingredients = f" (containing active ingredients: {', '.join(drug.active_ingredients)})" if drug.active_ingredients else ""
+                drug_descriptions.append(f"{drug.drug_name}{ingredients}")
+            lines.append(f"The patient is currently taking the following concurrent medications: {', '.join(drug_descriptions)}.")
+            
+        return " ".join(lines)
+    

@@ -1,0 +1,1 @@
+Patient Medical Record Summary. The patient is currently diagnosed with and being treated for: Acute Bacterial Sinusitis. The patient is currently taking the following concurrent medications: Amoxicillin-Clavulanate (Augmentin) (containing active ingredients: Amoxicillin, Clavulanate).

@@ -1,0 +1,13 @@
+Date of Visit: July 2, 2026
+Patient Name: Emily J. Harris
+Date of Birth: July 12, 1998
+Attending Physician: Dr. Michael J. Thompson, MD
+Department: Internal Medicine
+
+Prescription Order
+Medication: Metoprolol Succinate ER (Extended Release)
+Strength/Form: 25 mg oral tablet
+Directions (Sig): Take 1 tablet by mouth daily in the morning with a full glass of water. 
+Do not crush or chew the tablet.
+Dispense: 30 tablets
+Refills: 3

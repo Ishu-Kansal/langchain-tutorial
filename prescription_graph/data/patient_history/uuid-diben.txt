@@ -1,0 +1,7 @@
+Medication: Noveril (dibenzepin hydrochloride)
+Strength/Form: 240 mg extended-release oral tablet
+Directions (Sig): Take 1 tablet by mouth daily in the morning with a full glass 
+of water. Swallow whole; do not crush or chew.
+Dispense: 30 tablets
+
+Refills: 2
