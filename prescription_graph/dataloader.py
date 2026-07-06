@@ -56,7 +56,7 @@ def reset_and_load_patient_history(patient_uuid: str, visit_files_dir: str):
         if not visit_text:
             continue
         
-        structured_content = f"CLINICAL ENCOUNTER FILE: {filename}\n\n{visit_text}"
+        structured_content = f"{filename}\n\n{visit_text}"
         
         documents.append(structured_content)
         ids.append(f"pat_visit_{filename}")
@@ -69,7 +69,7 @@ def reset_and_load_patient_history(patient_uuid: str, visit_files_dir: str):
         patient_collection.add(documents=documents, metadatas=metadatas, ids=ids)
         print(f"Indexed {len(documents)} complete doctor visits for Patient UUID: {patient_uuid}")
     else:
-        print("o valid text documents found in the specified directory.")
+        print("0 valid text documents found in the specified directory.")
 
 
 

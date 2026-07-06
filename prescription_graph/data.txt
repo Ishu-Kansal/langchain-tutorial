@@ -4,24 +4,24 @@
    "pat_visit_uuid-diben.txt",
    "pat_visit_uuid-0601-err.txt",
    "pat_visit_uuid-optho.txt",
-   "pat_visit_uuid-gastro.txt",
    "pat_visit_uuid-0702.txt",
-   "pat_visit_uuid-antivir.txt",
    "pat_visit_uuid-antibio.txt",
+   "pat_visit_uuid-antivir.txt",
+   "pat_visit_uuid-gastro.txt",
    "pat_visit_uuid-antifung.txt"
   ]
  ],
  "embeddings": null,
  "documents": [
   [
-   "CLINICAL ENCOUNTER FILE: uuid-diben.txt\n\nPatient Medical Record Summary. The patient is currently taking the following concurrent medications: Noveril (containing active ingredients: dibenzepin hydrochloride).",
-   "CLINICAL ENCOUNTER FILE: uuid-0601-err.txt\n\nPatient Medical Record Summary. The patient is currently taking the following concurrent medications: Metoprolol Succinate ER (containing active ingredients: metoprolol succinate).",
-   "CLINICAL ENCOUNTER FILE: uuid-optho.txt\n\nPatient Medical Record Summary. The patient is currently diagnosed with and being treated for: Allergic conjunctivitis. The patient is currently taking the following concurrent medications: Olopatadine HCl (Patanol) (containing active ingredients: Olopatadine hydrochloride).",
-   "CLINICAL ENCOUNTER FILE: uuid-gastro.txt\n\nPatient Medical Record Summary. The patient is currently diagnosed with and being treated for: Gastrointestinal (GERD / Acid Reflux). The patient is currently taking the following concurrent medications: Omeprazole (Prilosec) (containing active ingredients: Omeprazole).",
-   "CLINICAL ENCOUNTER FILE: uuid-0702.txt\n\nPatient Medical Record Summary. The patient is currently diagnosed with and being treated for: Cough-Variant Asthma, Exercise-Induced Asthma, post-viral airway remodeling. The patient is currently taking the following concurrent medications: ProAir HFA (containing active ingredients: albuterol sulfate).",
-   "CLINICAL ENCOUNTER FILE: uuid-antivir.txt\n\nPatient Medical Record Summary. The patient is currently diagnosed with and being treated for: Herpes zoster, Shingles. The patient is currently taking the following concurrent medications: Valacyclovir (Valtrex) (containing active ingredients: Valacyclovir).",
-   "CLINICAL ENCOUNTER FILE: uuid-antibio.txt\n\nPatient Medical Record Summary. The patient is currently diagnosed with and being treated for: Acute Bacterial Sinusitis. The patient is currently taking the following concurrent medications: Amoxicillin-Clavulanate (Augmentin) (containing active ingredients: Amoxicillin, Clavulanate).",
-   "CLINICAL ENCOUNTER FILE: uuid-antifung.txt\n\nPatient Medical Record Summary. The patient is currently diagnosed with and being treated for: Topical skin fungal infection. The patient is currently taking the following concurrent medications: Ketoconazole Cream (containing active ingredients: ketoconazole)."
+   "uuid-diben.txt\n\nPatient Medical Record Summary. The patient is currently taking the following concurrent medications: Noveril (containing active ingredients: dibenzepin hydrochloride).",
+   "uuid-0601-err.txt\n\nPatient Medical Record Summary. The patient is currently taking the following concurrent medications: Metoprolol Succinate ER (containing active ingredients: metoprolol succinate).",
+   "uuid-optho.txt\n\nPatient Medical Record Summary. The patient is currently diagnosed with and being treated for: Allergic conjunctivitis. The patient is currently taking the following concurrent medications: Olopatadine HCl (Patanol) (containing active ingredients: Olopatadine hydrochloride).",
+   "uuid-0702.txt\n\nPatient Medical Record Summary. The patient is currently diagnosed with and being treated for: Cough-Variant Asthma, Exercise-Induced Asthma, post-viral airway remodeling. The patient is currently taking the following concurrent medications: ProAir HFA (containing active ingredients: albuterol sulfate).",
+   "uuid-antibio.txt\n\nPatient Medical Record Summary. The patient is currently diagnosed with and being treated for: Acute Bacterial Sinusitis. The patient is currently taking the following concurrent medications: Amoxicillin-Clavulanate (Augmentin) (containing active ingredients: Amoxicillin, Clavulanate).",
+   "uuid-antivir.txt\n\nPatient Medical Record Summary. The patient is currently diagnosed with and being treated for: Herpes zoster, Shingles. The patient is currently taking the following concurrent medications: Valacyclovir (Valtrex) (containing active ingredients: Valacyclovir).",
+   "uuid-gastro.txt\n\nPatient Medical Record Summary. The patient is currently diagnosed with and being treated for: Gastrointestinal (GERD / Acid Reflux). The patient is currently taking the following concurrent medications: Omeprazole (Prilosec) (containing active ingredients: Omeprazole).",
+   "uuid-antifung.txt\n\nPatient Medical Record Summary. The patient is currently diagnosed with and being treated for: Topical skin fungal infection. The patient is currently taking the following concurrent medications: Ketoconazole Cream (containing active ingredients: ketoconazole)."
   ]
  ],
  "uris": null,
@@ -38,28 +38,28 @@
     "patient_id": "first"
    },
    {
-    "visit_file": "uuid-0601-err.txt",
-    "patient_id": "first"
+    "patient_id": "first",
+    "visit_file": "uuid-0601-err.txt"
    },
    {
     "patient_id": "first",
     "visit_file": "uuid-optho.txt"
    },
    {
-    "visit_file": "uuid-gastro.txt",
+    "visit_file": "uuid-0702.txt",
     "patient_id": "first"
    },
    {
     "patient_id": "first",
-    "visit_file": "uuid-0702.txt"
+    "visit_file": "uuid-antibio.txt"
    },
    {
     "visit_file": "uuid-antivir.txt",
     "patient_id": "first"
    },
    {
-    "patient_id": "first",
-    "visit_file": "uuid-antibio.txt"
+    "visit_file": "uuid-gastro.txt",
+    "patient_id": "first"
    },
    {
     "patient_id": "first",
@@ -69,14 +69,14 @@
  ],
  "distances": [
   [
-   0.5748720169067383,
-   0.7021021842956543,
-   0.7259465456008911,
-   0.7687815427780151,
-   0.7843000292778015,
-   0.7913480401039124,
-   0.7913807034492493,
-   0.8199903964996338
+   1.132955551147461,
+   1.3303191661834717,
+   1.5219762325286865,
+   1.5764272212982178,
+   1.6286991834640503,
+   1.642630696296692,
+   1.6586275100708008,
+   1.6857787370681763
   ]
  ]
 }

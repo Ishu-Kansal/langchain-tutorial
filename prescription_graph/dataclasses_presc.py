@@ -1,5 +1,5 @@
 from pydantic import BaseModel, Field
-from typing import List, Optional
+from typing import List, Optional, TypedDict
 
 class DrugInfoBasic(BaseModel):
     drug_name: str = Field(description="Name of drug as given on prescription")
@@ -37,4 +37,20 @@ class PatientHistoryDoc(BaseModel):
             lines.append(f"The patient is currently taking the following concurrent medications: {', '.join(drug_descriptions)}.")
             
         return " ".join(lines)
+
+class ContIndFiles(TypedDict):
+    filename: str
+    text: str
+    distance: float
+
+class CriticalContradiction(BaseModel):
+    prescription_names: Optional[List[(DrugInfoBasic, DrugInfoBasic)]] = Field(description=("List of "
+        "contraindicting drugs represented as a tuple with first drug being the drug to-be-prescribed"))
+    conditions: Optional[List[str]] = Field(description="Patient's conditions that contraindicate prescribed drug")
+    significant_contra: bool = Field(description="True if contraindication is found and doctor callback required")
+
+class CriticalContraWrapper(TypedDict):
+    patient_id: str
+    contras: List[(str, CriticalContradiction)] # tuple of patient history (filename, contra)
+    
     

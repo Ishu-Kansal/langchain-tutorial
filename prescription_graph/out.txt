@@ -4,48 +4,13 @@ Indexed 8 complete doctor visits for Patient UUID: first
 Scanning history for Patient first using extracted drug warnings...
 None
 Retrieved 8 clinical encounters matching the risk profile.
-CLINICAL ENCOUNTER FILE: uuid-diben.txt
 
+uuid-diben.txt
 Patient Medical Record Summary. The patient is currently taking the following concurrent medications: Noveril (containing active ingredients: dibenzepin hydrochloride).
+1.132955551147461
 
-========================================
 
-CLINICAL ENCOUNTER FILE: uuid-0601-err.txt
-
+uuid-0601-err.txt
 Patient Medical Record Summary. The patient is currently taking the following concurrent medications: Metoprolol Succinate ER (containing active ingredients: metoprolol succinate).
+1.3303191661834717
 
-========================================
-
-CLINICAL ENCOUNTER FILE: uuid-optho.txt
-
-Patient Medical Record Summary. The patient is currently diagnosed with and being treated for: Allergic conjunctivitis. The patient is currently taking the following concurrent medications: Olopatadine HCl (Patanol) (containing active ingredients: Olopatadine hydrochloride).
-
-========================================
-
-CLINICAL ENCOUNTER FILE: uuid-gastro.txt
-
-Patient Medical Record Summary. The patient is currently diagnosed with and being treated for: Gastrointestinal (GERD / Acid Reflux). The patient is currently taking the following concurrent medications: Omeprazole (Prilosec) (containing active ingredients: Omeprazole).
-
-========================================
-
-CLINICAL ENCOUNTER FILE: uuid-0702.txt
-
-Patient Medical Record Summary. The patient is currently diagnosed with and being treated for: Cough-Variant Asthma, Exercise-Induced Asthma, post-viral airway remodeling. The patient is currently taking the following concurrent medications: ProAir HFA (containing active ingredients: albuterol sulfate).
-
-========================================
-
-CLINICAL ENCOUNTER FILE: uuid-antivir.txt
-
-Patient Medical Record Summary. The patient is currently diagnosed with and being treated for: Herpes zoster, Shingles. The patient is currently taking the following concurrent medications: Valacyclovir (Valtrex) (containing active ingredients: Valacyclovir).
-
-========================================
-
-CLINICAL ENCOUNTER FILE: uuid-antibio.txt
-
-Patient Medical Record Summary. The patient is currently diagnosed with and being treated for: Acute Bacterial Sinusitis. The patient is currently taking the following concurrent medications: Amoxicillin-Clavulanate (Augmentin) (containing active ingredients: Amoxicillin, Clavulanate).
-
-========================================
-
-CLINICAL ENCOUNTER FILE: uuid-antifung.txt
-
-Patient Medical Record Summary. The patient is currently diagnosed with and being treated for: Topical skin fungal infection. The patient is currently taking the following concurrent medications: Ketoconazole Cream (containing active ingredients: ketoconazole). <class 'str'>
