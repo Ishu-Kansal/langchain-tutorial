@@ -31,7 +31,7 @@ Notes:
 {visit.notes}"""
 
 
-@app.post("/api")
+@app.post("/api/consultation")
 def consultation_summary(
     visit: Visit,
 ):
@@ -45,7 +45,7 @@ def consultation_summary(
     ]
 
     stream = client.chat.completions.create(
-        model="gpt-5.4-nano",
+        model="gpt-5.4",
         messages=prompt,
         stream=True,
     )
