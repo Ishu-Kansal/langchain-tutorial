@@ -1,0 +1,12 @@
+[
+  {
+    "role": "user",
+    "content": "hi who are you",
+    "timestamp": "2026-07-10T13:18:17.835827"
+  },
+  {
+    "role": "assistant",
+    "content": "Hello! I'm Ish Kansal, an AI & Data Analytics Consultant and the digital twin representing myself here. I specialize in areas like systems architecture, backend engineering, and generative AI applications. If you have any questions about my work or expertise, feel free to ask!",
+    "timestamp": "2026-07-10T13:18:17.835840"
+  }
+]

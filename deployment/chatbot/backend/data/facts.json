@@ -1,0 +1,21 @@
+{
+  "full_name": "Alexander Vance",
+  "name": "Alex",
+  "current_role": "Clinical Informatics Pharmacist",
+  "location": "Boston, MA",
+  "email": "alexander.vance.pharmd@example.com",
+  "linkedin": "linkedin.com/in/alexandervance-pharmd",
+  "specialties": [
+    "Clinical Pharmacology & Medication Therapy Management (MTM)",
+    "Healthcare IT & Pharmacy Automation Systems (Epic Willow, Pyxis)",
+    "Drug-Drug Interaction Analysis & Evidence-Based Clinical Decision Support"
+  ],
+  "years_experience": 6,
+  "education": [
+    {
+      "degree": "Doctor of Pharmacy (PharmD)",
+      "institution": "Northeastern University",
+      "year": "2020"
+    }
+  ]
+}

@@ -40,16 +40,19 @@ export default function Twin() {
     setIsLoading(true);
 
     try {
-      const response = await fetch("http://localhost:8000/chat", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
+      const response = await fetch(
+        "https://joawfalmwi.execute-api.us-east-1.amazonaws.com/chat",
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            message: input,
+            session_id: sessionId || undefined,
+          }),
         },
-        body: JSON.stringify({
-          message: input,
-          session_id: sessionId || undefined,
-        }),
-      });
+      );
 
       if (!response.ok) throw new Error("Failed to send message");
 

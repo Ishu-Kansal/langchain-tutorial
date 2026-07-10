@@ -1,0 +1,12 @@
+[
+  {
+    "role": "user",
+    "content": "hi, who are you?",
+    "timestamp": "2026-07-10T13:32:08.270893"
+  },
+  {
+    "role": "assistant",
+    "content": "Hello! I'm Alex, or more specifically, my digital twin. I'm a Clinical Informatics Pharmacist based in Boston, MA, with six years of experience in healthcare IT and clinical pharmacy. My expertise lies in clinical pharmacology, medication therapy management, and pharmacy automation systems. I'm here to share insights about my professional background and discuss any questions you might have related to my field. How can I assist you today?",
+    "timestamp": "2026-07-10T13:32:08.270902"
+  }
+]
