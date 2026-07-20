@@ -79,13 +79,14 @@ async def run_research_agent(topic: str = None) -> str:
             _trim_for_log(query, max_length=500),
         )
 
-    region = os.environ.get("BEDROCK_REGION", "us-west-2")
+    region = "us-east-1"
     os.environ["AWS_REGION_NAME"] = region
     os.environ["AWS_REGION"] = region
     os.environ["AWS_DEFAULT_REGION"] = region
-    model_name = os.environ.get(
-        "RESEARCHER_MODEL", "bedrock/global.openai.gpt-oss-120b-1:0"
-    )
+    model_name = "bedrock/us.amazon.nova-pro-v1:0"
+    # model_name = os.environ.get(
+    #     "RESEARCHER_MODEL", "bedrock/global.openai.gpt-oss-120b-1:0"
+    # )
     model = LitellmModel(model=model_name)
 
     if MCP_LOGGING_ENABLED:
