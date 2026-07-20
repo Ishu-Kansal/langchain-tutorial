@@ -18,7 +18,7 @@ TERRAFORM_DIR = "terraform/4_researcher"
 
 
 def get_repo_root() -> Path:
-    return Path(
+    root =  Path(
         subprocess.run(
             ["git", "rev-parse", "--show-toplevel"],
             capture_output=True,
@@ -26,6 +26,7 @@ def get_repo_root() -> Path:
             check=True,
         ).stdout.strip()
     )
+    return root / "alex-chatbot" / "alex"
 
 
 def get_service_url():

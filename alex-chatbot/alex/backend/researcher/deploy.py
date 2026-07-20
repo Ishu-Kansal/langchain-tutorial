@@ -8,24 +8,35 @@ import json
 import os
 import subprocess
 import sys
+import tempfile
 import time
 from pathlib import Path
-
 from dotenv import load_dotenv
 
 # Load environment variables from .env file
 load_dotenv(override=True)
 
+# Create a single global temporary directory for Docker config isolation
+# This allows 'docker login', 'docker build', and 'docker push' to share the same session
+DOCKER_DIR = tempfile.TemporaryDirectory()
+
 
 def run_command(cmd, capture_output=False, cwd=None):
     """Run a command and handle errors."""
     try:
+        # Check if the command is calling docker
+        env = os.environ.copy()
+        if cmd and cmd[0] == "docker":
+            # Inject the isolated configuration path for all Docker commands
+            env["DOCKER_CONFIG"] = DOCKER_DIR.name
+
         result = subprocess.run(
             cmd,
             capture_output=capture_output,
             text=True,
             check=True,
             cwd=cwd,
+            env=env,  # <-- Applies environment dynamically
         )
         if capture_output:
             return result.stdout.strip()
@@ -53,14 +64,19 @@ def terraform_output(terraform_dir: Path, output_name: str) -> str:
 
 
 def get_repo_root() -> Path:
-    return Path(
-        run_command(["git", "rev-parse", "--show-toplevel"], capture_output=True)
+    root = Path(
+        run_command(
+            ["git", "rev-parse", "--show-toplevel"], capture_output=True
+        )
     )
+    return root / "alex-chatbot" / "alex"
 
 
 def write_image_override(terraform_dir: Path, image_uri: str):
     override_path = terraform_dir / "researcher.auto.tfvars.json"
-    override_path.write_text(json.dumps({"researcher_image_uri": image_uri}, indent=2) + "\n")
+    override_path.write_text(
+        json.dumps({"researcher_image_uri": image_uri}, indent=2) + "\n"
+    )
 
 
 def wait_for_lambda_active(region: str, function_name: str):
@@ -98,121 +114,147 @@ def wait_for_lambda_active(region: str, function_name: str):
             ],
             capture_output=True,
         ).strip()
-
         if status == "Successful" and state == "Active":
             print("✅ Lambda is active.")
             return
         if status == "Failed":
-            print("❌ Lambda update failed. Check the AWS Console or CloudWatch logs.")
+            print(
+                "❌ Lambda update failed. Check the AWS Console or CloudWatch logs."
+            )
             sys.exit(1)
-
         print(".", end="", flush=True)
         time.sleep(5)
-
     print("\n⚠️ Lambda update is taking longer than expected.")
 
 
 def main():
-    print("Alex Researcher Service - Lambda Deployment")
-    print("==========================================")
+    try:
+        print("Alex Researcher Service - Lambda Deployment")
+        print("==========================================")
 
-    # Get AWS account ID
-    region = os.environ.get("DEFAULT_AWS_REGION")
-    if not region:
-        print("Error: DEFAULT_AWS_REGION not found in your .env file.")
-        sys.exit(1)
+        # Get AWS account ID
+        region = os.environ.get("DEFAULT_AWS_REGION")
+        if not region:
+            print("Error: DEFAULT_AWS_REGION not found in your .env file.")
+            sys.exit(1)
 
-    print("\nGetting AWS account details...")
-    account_id = run_command(
-        ["aws", "sts", "get-caller-identity", "--query", "Account", "--output", "text"],
-        capture_output=True,
-    )
+        print("\nGetting AWS account details...")
+        account_id = run_command(
+            [
+                "aws",
+                "sts",
+                "get-caller-identity",
+                "--query",
+                "Account",
+                "--output",
+                "text",
+            ],
+            capture_output=True,
+        )
+        print(f"AWS Account: {account_id}")
+        print(f"Region: {region}")
 
-    print(f"AWS Account: {account_id}")
-    print(f"Region: {region}")
+        repo_root = get_repo_root()
+        terraform_dir = repo_root / "terraform" / "4_researcher"
+        backend_dir = repo_root / "backend" / "researcher"
 
-    repo_root = get_repo_root()
-    terraform_dir = repo_root / "terraform" / "4_researcher"
-    backend_dir = repo_root / "backend" / "researcher"
+        print("\nEnsuring Terraform ECR prerequisites exist...")
+        terraform_apply(
+            terraform_dir,
+            targets=[
+                "aws_ecr_repository.researcher",
+                "aws_ecr_repository_policy.researcher_lambda_access",
+            ],
+        )
 
-    print("\nEnsuring Terraform ECR prerequisites exist...")
-    terraform_apply(
-        terraform_dir,
-        targets=[
-            "aws_ecr_repository.researcher",
-            "aws_ecr_repository_policy.researcher_lambda_access",
-        ],
-    )
+        print("\nGetting ECR repository URL...")
+        ecr_url = terraform_output(terraform_dir, "ecr_repository_url")
+        if not ecr_url:
+            print("Error: ECR repository not found.")
+            sys.exit(1)
+        print(f"ECR Repository: {ecr_url}")
 
-    print("\nGetting ECR repository URL...")
-    ecr_url = terraform_output(terraform_dir, "ecr_repository_url")
-    if not ecr_url:
-        print("Error: ECR repository not found.")
-        sys.exit(1)
+        # Login to ECR
+        print("\nLogging in to ECR...")
+        password = run_command(
+            ["aws", "ecr", "get-login-password", "--region", region],
+            capture_output=True,
+        )
 
-    print(f"ECR Repository: {ecr_url}")
+        # Use the customized run_command environment for Popen
+        custom_env = os.environ.copy()
+        custom_env["DOCKER_CONFIG"] = DOCKER_DIR.name
 
-    # Login to ECR
-    print("\nLogging in to ECR...")
-    password = run_command(
-        ["aws", "ecr", "get-login-password", "--region", region], capture_output=True
-    )
+        login_process = subprocess.Popen(
+            [
+                "docker",
+                "login",
+                "--username",
+                "AWS",
+                "--password-stdin",
+                ecr_url,
+            ],
+            stdin=subprocess.PIPE,
+            stdout=subprocess.PIPE,
+            stderr=subprocess.PIPE,
+            text=True,
+            env=custom_env,
+        )
+        _, stderr = login_process.communicate(input=password)
 
-    login_process = subprocess.Popen(
-        ["docker", "login", "--username", "AWS", "--password-stdin", ecr_url],
-        stdin=subprocess.PIPE,
-        stdout=subprocess.PIPE,
-        stderr=subprocess.PIPE,
-        text=True,
-    )
-    _, stderr = login_process.communicate(input=password)
-    if login_process.returncode != 0:
-        print(f"Error logging into ECR: {stderr}")
-        sys.exit(1)
-    print("Login successful!")
+        if login_process.returncode != 0:
+            print(f"Error logging into ECR: {stderr}")
+            sys.exit(1)
+        print("Login successful!")
 
-    # Generate a unique tag using timestamp
-    image_tag = f"deploy-{int(time.time())}"
-    local_image = f"alex-researcher:{image_tag}"
-    remote_image = f"{ecr_url}:{image_tag}"
+        # Generate a unique tag using timestamp
+        image_tag = f"deploy-{int(time.time())}"
+        local_image = f"alex-researcher:{image_tag}"
+        remote_image = f"{ecr_url}:{image_tag}"
 
-    # Build Docker image
-    print(f"\nBuilding Docker image for linux/amd64 with tag: {image_tag}")
-    run_command(
-        [
-            "docker",
-            "build",
-            "--platform",
-            "linux/amd64",
-            "-t",
-            local_image,
-            ".",
-        ],
-        cwd=backend_dir,
-    )
+        # Build Docker image
+        print(f"\nBuilding Docker image for linux/amd64 with tag: {image_tag}")
+        run_command(
+            [
+                "docker",
+                "build",
+                "--platform",
+                "linux/amd64",
+                "-t",
+                local_image,
+                ".",
+            ],
+            cwd=backend_dir,
+        )
 
-    # Tag for ECR
-    print("\nTagging image for ECR...")
-    run_command(["docker", "tag", local_image, remote_image])
+        # Tag for ECR
+        print("\nTagging image for ECR...")
+        run_command(["docker", "tag", local_image, remote_image])
 
-    # Push to ECR
-    print("\nPushing image to ECR...")
-    run_command(["docker", "push", remote_image])
-    print("\n✅ Docker image pushed successfully!")
+        # Push to ECR
+        print("\nPushing image to ECR...")
+        run_command(["docker", "push", remote_image])
+        print("\n✅ Docker image pushed successfully!")
 
-    print("\nApplying Terraform with the new image...")
-    write_image_override(terraform_dir, remote_image)
-    terraform_apply(terraform_dir)
+        print("\nApplying Terraform with the new image...")
+        write_image_override(terraform_dir, remote_image)
+        terraform_apply(terraform_dir)
 
-    function_name = terraform_output(terraform_dir, "researcher_function_name")
-    service_url = terraform_output(terraform_dir, "researcher_url")
+        function_name = terraform_output(
+            terraform_dir, "researcher_function_name"
+        )
+        service_url = terraform_output(terraform_dir, "researcher_url")
 
-    wait_for_lambda_active(region, function_name)
+        wait_for_lambda_active(region, function_name)
 
-    print("\n🚀 Your service is available at:")
-    print(f"   {service_url}")
-    print("\nTest it with:")
-    print(f"   curl {service_url.rstrip('/')}/health")
+        print("\n🚀 Your service is available at:")
+        print(f"  {service_url}")
+        print("\nTest it with:")
+        print(f"  curl {service_url.rstrip('/')}/health")
+
+    finally:
+        # Ensure temporary directory cleans up after script ends
+        DOCKER_DIR.cleanup()
 
 
 if __name__ == "__main__":
