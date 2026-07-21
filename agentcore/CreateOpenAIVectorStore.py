@@ -2,10 +2,12 @@
 
 import os, re
 from pathlib import Path
+from dotenv import load_dotenv
 from openai import OpenAI
 from agents import set_default_openai_key
 
 # --- API key ---
+load_dotenv()
 api_key = os.getenv("OPENAI_API_KEY")
 
 if not api_key:

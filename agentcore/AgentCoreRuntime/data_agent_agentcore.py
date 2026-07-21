@@ -9,6 +9,9 @@
 
 # ## Configure client and create Vector Store
 
+from dotenv import load_dotenv
+load_dotenv()
+
 import os, re
 from pathlib import Path
 from openai import OpenAI
