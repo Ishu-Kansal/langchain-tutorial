@@ -1,22 +1,22 @@
-default_agent: data_agent_agentcore
+default_agent: data_agent_agentcore_memory
 agents:
-  data_agent_agentcore:
-    name: data_agent_agentcore
+  data_agent_agentcore_memory:
+    name: data_agent_agentcore_memory
     language: python
     node_version: '20'
-    entrypoint: /home/ikansal/Langchain/Tutorial Udemy/agentcore/AgentCoreRuntime/data_agent_agentcore.py
+    entrypoint: /home/ikansal/Langchain/Tutorial Udemy/agentcore/AgentCoreMemory/data_agent_agentcore_memory.py
     deployment_type: container
     runtime_type: null
     platform: linux/arm64
-    container_runtime: docker
-    source_path: /home/ikansal/Langchain/Tutorial Udemy/agentcore/AgentCoreRuntime
+    container_runtime: none
+    source_path: /home/ikansal/Langchain/Tutorial Udemy/agentcore/AgentCoreMemory
     aws:
-      execution_role: null
-      execution_role_auto_create: true
+      execution_role: arn:aws:iam::571761132122:role/AmazonBedrockAgentCoreSDKRuntime-us-east-1-b79cd6c6d5
+      execution_role_auto_create: false
       account: '571761132122'
       region: us-east-1
-      ecr_repository: null
-      ecr_auto_create: true
+      ecr_repository: 571761132122.dkr.ecr.us-east-1.amazonaws.com/bedrock-agentcore-data_agent_agentcore_memory
+      ecr_auto_create: false
       s3_path: null
       s3_auto_create: false
       network_configuration:
@@ -30,13 +30,13 @@ agents:
         idle_runtime_session_timeout: null
         max_lifetime: null
     bedrock_agentcore:
-      agent_id: null
-      agent_arn: null
-      agent_session_id: null
+      agent_id: data_agent_agentcore_memory-EXABHy7h4L
+      agent_arn: arn:aws:bedrock-agentcore:us-east-1:571761132122:runtime/data_agent_agentcore_memory-EXABHy7h4L
+      agent_session_id: 17aacc08-ec17-4ded-85d7-3e6759f6594a
     codebuild:
-      project_name: null
-      execution_role: null
-      source_bucket: null
+      project_name: bedrock-agentcore-data_agent_agentcore_memory-builder
+      execution_role: arn:aws:iam::571761132122:role/AmazonBedrockAgentCoreSDKCodeBuild-us-east-1-b79cd6c6d5
+      source_bucket: bedrock-agentcore-codebuild-sources-571761132122-us-east-1
     memory:
       mode: NO_MEMORY
       memory_id: null

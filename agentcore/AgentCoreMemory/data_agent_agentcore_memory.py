@@ -114,7 +114,7 @@ from agents import (
 #Session for memory, integrating AgentCore's memory features
 session = AgentCoreSession(
     session_id="user-1234-convo-abcdef",
-    memory_id="data_app_memory-byciLwAvYg",
+    memory_id="memory_test-gqa6Tv9ycV",
     actor_id="app/user-1234",
     region="us-east-1"
 )

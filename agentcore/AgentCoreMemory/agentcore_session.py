@@ -149,7 +149,6 @@ class AgentCoreSession(SessionABC):
             actor_id=self.actor_id,
             session_id=self.session_id,
             branch_name=self._current_branch or None,
-            include_parent_events=False,
             max_results=limit or 100,
             include_payload=True,
         )
@@ -237,7 +236,6 @@ class AgentCoreSession(SessionABC):
             actor_id=self.actor_id,
             session_id=self.session_id,
             branch_name=self._current_branch or None,
-            include_parent_events=False,
             max_results=100,
             include_payload=True,
         )
