@@ -101,13 +101,6 @@ from agents import (
     input_guardrail,
 )
 
-# session = AgentCoreSession(
-#     session_id="user-1234-convo-abcdef",
-#     memory_id="",
-#     actor_id="app/user-1234",
-#     region="us-east-1"
-# )
-
 session = AgentCoreSession(
     session_id="user-1234-convo-abcdef",
     memory_id="memory_test-gqa6Tv9ycV",
